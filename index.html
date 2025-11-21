@@ -1,0 +1,2956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriShop - Agriculture E-Commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add to head -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <!-- Add this to your <head> section -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=FONT_NAME:wght@WEIGHT&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body class="bg-white">
+    <!-- Notification Container -->
+    <div id="notification-container" class="fixed top-4 right-4 z-50"></div>
+
+    <!-- Header -->
+    <header id="main-header" class="sticky top-0 z-40">
+        <div class="header-container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center justify-between w-full md:w-auto">
+                    <div class="logo-container flex items-center space-x-3">
+                        <img src="agrishop-logo.jpg" alt="AgriShop Logo" class="w-12 h-12 rounded-full">
+                        <h1 class="logo text-white">AgriShop</h1>
+                    </div>
+                    <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+                <nav id="main-nav" class="hidden md:flex space-x-8 my-4 md:my-0">
+                    <a href="#" onclick="showView('home')"
+                        class="nav-link text-white hover:text-green-200 transition">Home</a>
+                    <a href="#" onclick="showView('products'); toggleVerticalNav()"
+                        class="nav-link text-white hover:text-green-200 transition">Products</a>
+                    <a href="https://rahulmete276.github.io/Crop-Detection-Project/"
+                        class="nav-link text-white hover:text-green-200 transition">AI Crop Disease Detection</a>
+                    <a href="#" onclick="showView('tools-rental')"
+                        class="nav-link text-white hover:text-green-200 transition">Tools Rental</a>
+                    <a href="#" onclick="showView('about')"
+                        class="nav-link text-white hover:text-green-200 transition">About</a>
+                    <a href="#" onclick="showView('contact')"
+                        class="nav-link text-white hover:text-green-200 transition">Contact</a>
+
+                </nav>
+
+                <div class="flex items-center space-x-4 w-full md:w-auto">
+                    <div class="search-container relative">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="search-input" placeholder="Search products..." class="search-input pr-10"
+                            onkeypress="handleSearchKeypress(event)">
+                        <button class="camera-search-button" onclick="openCameraSearch()">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <button onclick="toggleCart()" class="cart-button">
+                        <i class="fas fa-shopping-cart text-white text-xl"></i>
+                        <span id="cart-count" class="cart-count">0</span>
+                    </button>
+                    <button class="text-white hover:text-green-200 transition">
+                        <a href="components/userLogin.html">
+                            <i class="fas fa-user text-xl"></i>
+                        </a>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden mt-4 md:hidden">
+                <a href="#" onclick="showView('home')"
+                    class="block py-2 text-white hover:text-green-200 transition">Home</a>
+                <a href="#" onclick="showView('products'); toggleVerticalNav()"
+                    class="block py-2 text-white hover:text-green-200 transition">Products</a>
+                <a href="https://rahulmete276.github.io/Crop-Detection-Project/"
+                    class="nav-link text-white hover:text-green-200 transition">AI Crop Disease Detection</a>
+                <a href="#" onclick="showView('tools-rental')"
+                    class="block py-2 text-white hover:text-green-200 transition">Tools Rental</a>
+                <a href="#" onclick="showView('about')"
+                    class="block py-2 text-white hover:text-green-200 transition">About</a>
+                <a href="#" onclick="showView('contact')"
+                    class="block py-2 text-white hover:text-green-200 transition">Contact</a>
+                <a href="#" onclick="showLogin()"
+                    class="block py-2 text-white hover:text-green-200 transition">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Home View -->
+        <div id="home-view" class="view">
+            <!-- Image Carousel - Full Screen -->
+            <section class="mb-12">
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <div class="carousel-slide active">
+                            <img src="slider-images/Premium Agriculture Products1.jpg" alt="Farm Field"
+                                class="slider-img">
+                            <div class="carousel-content">
+                                <div class="carousel-text">
+                                    <h2 class="carousel-title">Premium Agriculture Products</h2>
+                                    <p class="carousel-description">Everything you need for a successful harvest</p>
+                                    <button onclick="showView('products')" class="carousel-button">
+                                        Shop Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="slider-images/organicProduct.jpg" alt="Organic Farming" class="slider-img">
+                            <div class="carousel-content">
+                                <div class="carousel-text">
+                                    <h2 class="carousel-title">100% Organic Products</h2>
+                                    <p class="carousel-description">Sustainable farming for a better tomorrow</p>
+                                    <button onclick="showView('products')" class="carousel-button">
+                                        Explore
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="slider-images/Expert Farming Solutions1.jpg" alt="Modern Agriculture"
+                                class="slider-img">
+                            <div class="carousel-content">
+                                <div class="carousel-text">
+                                    <h2 class="carousel-title">Expert Farming Solutions</h2>
+                                    <p class="carousel-description">Tools and techniques for modern farmers</p>
+                                    <button onclick="showView('products')" class="carousel-button">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-indicators">
+                        <button class="carousel-dot active" onclick="currentSlide(1)"></button>
+                        <button class="carousel-dot" onclick="currentSlide(2)"></button>
+                        <button class="carousel-dot" onclick="currentSlide(3)"></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Special Offers Section -->
+            <section class="offers-section">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-2">Special Offers</h2>
+                    <p class="text-gray-600">Don't miss out on these amazing deals!</p>
+                </div>
+
+                <div class="offers-container">
+                    <div class="offer-card">
+                        <div class="offer-badge">25% OFF</div>
+                        <div class="offer-image">
+                            <img src="Disccount-prd-images/Organic Seeds Mega Sale1.webp" alt="Organic Seeds Offer">
+                        </div>
+                        <div class="offer-content">
+                            <h3 class="offer-title">Organic Seeds Mega Sale</h3>
+                            <p class="offer-description">Get 25% off on all organic seeds. Limited time offer for the
+                                upcoming planting season.</p>
+                            <div class="offer-expiry">
+                                <i class="far fa-clock"></i> Expires in 5 days
+                            </div>
+                            <a href="#" onclick="filterByCategory('seeds'); showView('products')"
+                                class="offer-button">Shop Now</a>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-badge">Buy 2 Get 1</div>
+                        <div class="offer-image">
+                            <img src="Disccount-prd-images/byTwogetOneFree.jpg" alt="Fertilizers Offer">
+                        </div>
+                        <div class="offer-content">
+                            <h3 class="offer-title">Fertilizer Bundle Deal</h3>
+                            <p class="offer-description">Buy any 2 fertilizers and get 1 free. Perfect for preparing
+                                your garden for the season.</p>
+                            <div class="offer-expiry">
+                                <i class="far fa-clock"></i> Expires in 10 days
+                            </div>
+                            <a href="#" onclick="filterByCategory('fertilizers'); showView('products')"
+                                class="offer-button">Shop Now</a>
+                        </div>
+                    </div>
+
+                    <div class="offer-card">
+                        <div class="offer-badge">15% OFF</div>
+                        <div class="offer-image">
+                            <img src="Disccount-prd-images/farmTools.jpg" alt="Gardening Tools Offer">
+                        </div>
+                        <div class="offer-content">
+                            <h3 class="offer-title">Gardening Tools Discount</h3>
+                            <p class="offer-description">Get 15% off on all premium gardening tools. Upgrade your
+                                gardening equipment today.</p>
+                            <div class="offer-expiry">
+                                <i class="far fa-clock"></i> Expires in 7 days
+                            </div>
+                            <a href="#" onclick="filterByCategory('tools'); showView('products')"
+                                class="offer-button">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Smart Features Section -->
+            <section class="mb-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-2">Smart Farming Features</h2>
+                    <p class="text-gray-600">Leverage technology for better farming outcomes</p>
+                </div>
+
+                <!-- <!DOCTYPE html>
+                <html lang="en">
+
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+                <title>AgriConnect - Farmer Dashboard</title>
+                <!-- Load Tailwind CSS -->
+                <script src="https://cdn.tailwindcss.com"></script>
+                <!-- Load Lucide Icons -->
+                <script type="module" src="https://unpkg.com/lucide@latest"></script>
+                <!-- Configure Tailwind with 'Inter' font -->
+                <script>
+                    tailwind.config = {
+                        theme: {
+                            extend: {
+                                colors: {
+                                    'primary-green': '#10B981', // Emerald green
+                                    'secondary-yellow': '#FBBF24', // Amber
+                                    'dark-bg': '#0F172A', // Slate 900
+                                    'card-light': '#F9FAFB', // Gray 50
+                                    'soil-brown': '#654321',
+                                },
+                                fontFamily: {
+                                    sans: ['Inter', 'sans-serif'],
+                                },
+                            }
+                        }
+                    }
+                </script>
+                </head>
+
+                <body class="bg-gray-100 font-sans min-h-screen antialiased">
+
+                    <!-- Main Dashboard Layout -->
+                    <div id="main-dashboard" class="max-w-7xl mx-auto p-4 md:p-8 hidden-until-loaded">
+
+                        <!-- Header -->
+                        <header
+                            class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 bg-white p-6 rounded-2xl shadow-lg">
+                            <div>
+                                <h1 class="text-3xl font-extrabold text-white flex items-center">
+                                    <span data-lucide="leaf" class="w-8 h-8 mr-2"></span> AgriConnect Dashboard
+                                </h1>
+                                <p class="text-white-500 mt-1">Empowering your farming decisions.</p>
+                            </div>
+                            <div class="mt-4 md:mt-0 text-right">
+                                <p id="firebase-status" class="text-sm font-medium text-white-500">Firebase:
+                                    Initializing...</p>
+                                <p id="user-id-display" class="text-xs text-gray-400 mt-1 truncate"></p>
+                            </div>
+                        </header>
+
+                        <!-- Tab Navigation -->
+                        <div class="bg-white p-1 rounded-xl shadow-md mb-6 flex space-x-1">
+                            <button id="market-tab" onclick="switchView('market')"
+                                class="flex-1 py-3 px-4 text-center font-semibold text-primary-green border-b-2 border-primary-green transition duration-300 rounded-lg">
+                                <span data-lucide="bar-chart-2" class="inline-block w-5 h-5 mr-2"></span> Market Price
+                                Updates
+                            </button>
+                            <button id="consultancy-tab" onclick="switchView('consultancy')"
+                                class="flex-1 py-3 px-4 text-center font-semibold text-gray-500 border-b-2 border-transparent hover:border-gray-300 transition duration-300 rounded-lg">
+                                <span data-lucide="users-2" class="inline-block w-5 h-5 mr-2"></span> Digital
+                                Agri-Consultancy
+                            </button>
+                        </div>
+
+
+                        <!-- 1. Real-Time Market Price Updates Content -->
+                        <section id="market-content" class="space-y-6">
+                            <div class="bg-secondary-yellow/10 p-4 rounded-xl shadow-md flex items-start">
+                                <span data-lucide="lightbulb"
+                                    class="w-6 h-6 text-secondary-yellow flex-shrink-0 mt-1 mr-3"></span>
+                                <p class="text-sm text-gray-700">Prices are updated every few seconds (simulated). Click
+                                    **✨ Analyze
+                                    Price** for real-time, AI-powered market predictions based on the latest news.</p>
+                            </div>
+
+                            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                                <!-- Table Header -->
+                                <div
+                                    class="grid grid-cols-6 md:grid-cols-12 gap-4 items-center py-4 px-4 bg-gray-50 border-b">
+                                    <div class="col-span-3 md:col-span-3 font-semibold text-gray-600 text-sm">Commodity
+                                    </div>
+                                    <div class="col-span-2 md:col-span-2 font-semibold text-gray-600 text-sm">
+                                        Mandi/Market</div>
+                                    <div
+                                        class="col-span-2 md:col-span-2 font-semibold text-gray-600 text-sm text-right">
+                                        Latest Price
+                                    </div>
+                                    <div
+                                        class="col-span-2 md:col-span-2 font-semibold text-gray-600 text-sm text-right hidden md:block">
+                                        24h Trend</div>
+                                    <div
+                                        class="col-span-6 md:col-span-3 font-semibold text-gray-600 text-sm text-right">
+                                        Insights</div>
+                                </div>
+
+                                <!-- Price List -->
+                                <div id="market-price-list"
+                                    class="scroll-container max-h-[60vh] overflow-y-auto divide-y divide-gray-200">
+                                    <!-- Data will be injected here by renderMarketPrices() -->
+                                </div>
+                            </div>
+                        </section>
+
+
+                        <!-- 2. Digital Agri-Consultancy Content -->
+                        <section id="consultancy-content" class="space-y-6 hidden">
+                            <h2 class="text-2xl font-bold text-gray-800">Connect with Experts</h2>
+                            <div class="bg-primary-green/10 p-4 rounded-xl shadow-md flex items-start">
+                                <span data-lucide="speech"
+                                    class="w-6 h-6 text-primary-green flex-shrink-0 mt-1 mr-3"></span>
+                                <p class="text-sm text-gray-700">Find the right expert for soil health, crop management,
+                                    or livestock
+                                    advice. Click 'Book Call' to submit a consultation request.</p>
+                            </div>
+
+                            <!-- UI Notification of Email Simulation -->
+                            <div id="email-confirmation-box"
+                                class="hidden opacity-0 bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-lg shadow-md transition-all duration-500">
+                                <p class="font-bold mb-1 flex items-center"><span data-lucide="mail-check"
+                                        class="w-5 h-5 mr-2"></span>
+                                    Admin Notification Sent (Simulated)</p>
+                                <p class="text-sm">A notification was successfully sent (simulated) to the admin email
+                                    **hiteshlokare3@gmail.com** for this booking. Check your browser's console for full
+                                    log details.</p>
+                                <div id="email-details"
+                                    class="mt-2 pt-2 border-t border-blue-300 text-xs text-blue-700"></div>
+                            </div>
+
+
+                            <div id="experts-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <!-- Expert cards will be injected here by renderExperts() -->
+                                <p class="text-center p-8 text-gray-500 md:col-span-2 lg:col-span-3">Loading experts...
+                                </p>
+                            </div>
+                        </section>
+
+                    </div>
+
+                    <!-- Global Message Box (Non-Alert Dialog) -->
+                    <div id="global-message-box"
+                        class="fixed bottom-4 right-4 p-4 rounded-lg shadow-xl text-white z-50 transition-all duration-300 transform translate-y-full opacity-0 bg-gray-800">
+                        <h3 id="alert-title" class="font-bold text-lg mb-1">Title</h3>
+                        <p id="alert-message" class="text-sm">Message content.</p>
+                    </div>
+
+                    <!-- Market Analysis Modal (LLM Feature) -->
+                    <div id="analysis-modal"
+                        class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden transition-opacity duration-300">
+                        <div
+                            class="bg-white rounded-xl shadow-2xl w-full max-w-2xl m-4 transform transition-all duration-300 scale-95 opacity-0 modal-content-active max-h-[90vh] overflow-y-auto">
+                            <div class="p-6 border-b flex justify-between items-center bg-primary-green rounded-t-xl">
+                                <h3 id="analysis-title" class="text-2xl font-bold text-white">Market Insight</h3>
+                                <button onclick="closeAnalysisModal()"
+                                    class="text-primary-green bg-white rounded-full p-1 hover:bg-gray-100 transition">
+                                    <span data-lucide="x" class="w-6 h-6"></span>
+                                </button>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div id="analysis-content" class="text-gray-700 space-y-3">
+                                    <!-- LLM analysis will be injected here -->
+                                </div>
+                                <div id="analysis-sources" class="border-t pt-4">
+                                    <!-- Grounding sources will be injected here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Booking Modal (Enhanced with more fields) -->
+                    <div id="booking-modal"
+                        class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden transition-opacity duration-300">
+                        <div
+                            class="bg-white rounded-xl shadow-2xl w-full max-w-lg m-4 transform transition-all duration-300 scale-95 opacity-0 modal-content-active max-h-[90vh] overflow-y-auto">
+                            <div class="p-6 border-b flex justify-between items-center">
+                                <h3 class="text-2xl font-bold text-primary-green">Book Consultation</h3>
+                                <button onclick="closeBookingModal()"
+                                    class="text-gray-400 hover:text-gray-600 transition">
+                                    <span data-lucide="x" class="w-6 h-6"></span>
+                                </button>
+                            </div>
+                            <form id="booking-form" onsubmit="handleBooking(event)" class="p-6 space-y-4">
+                                <div class="p-3 bg-secondary-yellow/20 rounded-lg border border-secondary-yellow/50">
+                                    <p class="font-semibold text-gray-800" id="modal-expert-name">Expert Name</p>
+                                    <p class="text-sm text-gray-600" id="modal-expert-price">Consultation Fee: ₹0/hr</p>
+                                </div>
+
+                                <!-- Personal Information Section -->
+                                <div class="border-t pt-4">
+                                    <h4 class="text-md font-semibold text-gray-700 mb-3 flex items-center">
+                                        <span data-lucide="user" class="w-4 h-4 mr-2 text-primary-green"></span>
+                                        Personal Information
+                                    </h4>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="name" class="block text-sm font-medium text-gray-700">Your
+                                                Name</label>
+                                            <input type="text" id="name" name="name" required
+                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                        </div>
+
+                                        <div>
+                                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone
+                                                Number</label>
+                                            <input type="tel" id="phone" name="phone" required
+                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <label for="email" class="block text-sm font-medium text-gray-700">Email
+                                            Address</label>
+                                        <input type="email" id="email" name="email" required
+                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                    </div>
+                                </div>
+
+                                <!-- Farm Information Section -->
+                                <div class="border-t pt-4">
+                                    <h4 class="text-md font-semibold text-gray-700 mb-3 flex items-center">
+                                        <span data-lucide="map-pin" class="w-4 h-4 mr-2 text-primary-green"></span>
+                                        Farm Information
+                                    </h4>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="farm-location"
+                                                class="block text-sm font-medium text-gray-700">Farm Location</label>
+                                            <input type="text" id="farm-location" name="farm-location" required
+                                                placeholder="Village, District, State"
+                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                        </div>
+
+                                        <div>
+                                            <label for="farm-size" class="block text-sm font-medium text-gray-700">Farm
+                                                Size (Acres)</label>
+                                            <input type="number" id="farm-size" name="farm-size" min="0.1" step="0.1"
+                                                required
+                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <label for="crop-type" class="block text-sm font-medium text-gray-700">Primary
+                                            Crop Type</label>
+                                        <select id="crop-type" name="crop-type" required
+                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                            <option value="">Select a crop type</option>
+                                            <option value="cereals">Cereals (Wheat, Rice, Maize)</option>
+                                            <option value="pulses">Pulses (Lentils, Beans, Peas)</option>
+                                            <option value="oilseeds">Oilseeds (Mustard, Sunflower, Soybean)</option>
+                                            <option value="vegetables">Vegetables</option>
+                                            <option value="fruits">Fruits</option>
+                                            <option value="spices">Spices</option>
+                                            <option value="commercial">Commercial Crops (Cotton, Sugarcane)</option>
+                                            <option value="mixed">Mixed Cropping</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Consultation Details Section -->
+                                <div class="border-t pt-4">
+                                    <h4 class="text-md font-semibold text-gray-700 mb-3 flex items-center">
+                                        <span data-lucide="calendar" class="w-4 h-4 mr-2 text-primary-green"></span>
+                                        Consultation Details
+                                    </h4>
+
+                                    <div>
+                                        <label for="urgency" class="block text-sm font-medium text-gray-700">Urgency
+                                            Level</label>
+                                        <select id="urgency" name="urgency" required
+                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                            <option value="">Select urgency level</option>
+                                            <option value="low">Low - General inquiry</option>
+                                            <option value="medium">Medium - Planning season ahead</option>
+                                            <option value="high">High - Current crop issue</option>
+                                            <option value="critical">Critical - Urgent problem requiring immediate
+                                                attention</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <label for="issue" class="block text-sm font-medium text-gray-700">Brief Issue
+                                            Summary</label>
+                                        <textarea id="issue" name="issue" rows="3" required
+                                            placeholder="Describe your issue in detail (e.g., pest control, soil health, irrigation problem)"
+                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green"></textarea>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                        <div>
+                                            <label for="date" class="block text-sm font-medium text-gray-700">Preferred
+                                                Date</label>
+                                            <input type="date" id="date" name="date" required
+                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                        </div>
+                                        <div>
+                                            <label for="time" class="block text-sm font-medium text-gray-700">Preferred
+                                                Time</label>
+                                            <input type="time" id="time" name="time" required
+                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-3 focus:ring-primary-green focus:border-primary-green">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Communication Preferences Section -->
+                                <div class="border-t pt-4">
+                                    <h4 class="text-md font-semibold text-gray-700 mb-3 flex items-center">
+                                        <span data-lucide="phone" class="w-4 h-4 mr-2 text-primary-green"></span>
+                                        Communication Preferences
+                                    </h4>
+
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="phone-consultation" name="phone-consultation"
+                                                class="mr-2 h-4 w-4 text-primary-green focus:ring-primary-green border-gray-300 rounded">
+                                            <span class="text-sm text-gray-700">Phone consultation preferred</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="video-consultation" name="video-consultation"
+                                                class="mr-2 h-4 w-4 text-primary-green focus:ring-primary-green border-gray-300 rounded">
+                                            <span class="text-sm text-gray-700">Video consultation preferred</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="checkbox" id="farm-visit" name="farm-visit"
+                                                class="mr-2 h-4 w-4 text-primary-green focus:ring-primary-green border-gray-300 rounded">
+                                            <span class="text-sm text-gray-700">Willing to pay extra for farm
+                                                visit</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button type="submit"
+                                    class="w-full py-3 px-4 border border-transparent rounded-full shadow-sm text-lg font-bold text-white bg-primary-green hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green transition duration-300">
+                                    Submit Booking Request
+                                    <a href="mailto:hiteshlokare3@gmail.com"></a>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    // <!-- Firebase SDK Imports (Module Type) -->
+                    <script type="module">
+                        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+                        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+                        import { getFirestore, doc, onSnapshot, collection, query, setDoc, getDocs, setLogLevel, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+                        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+
+                        // --- GEMINI API SETUP ---
+                        // IMPORTANT: Replace this with your actual Gemini API key from https://makersuite.google.com/app/apikey
+                        const API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+                        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
+                        const MAX_RETRIES = 5;
+
+                        // --- FIREBASE CONFIGURATION ---
+                        // Using your provided Firebase configuration
+                        const firebaseConfig = {
+                            apiKey: "AIzaSyAq5Ee739s0FFZ1wYmgGRSrn5Ht8YFdArU",
+                            authDomain: "temp-8fdf1.firebaseapp.com",
+                            projectId: "temp-8fdf1",
+                            storageBucket: "temp-8fdf1.firebasestorage.app",
+                            messagingSenderId: "937417631112",
+                            appId: "1:937417631112:web:0840568644c3f63e42463d",
+                            measurementId: "G-7VRC5T7X0F"
+                        };
+
+                        // --- GLOBAL FIREBASE VARIABLES ---
+                        const appId = "agriconnect-app"; // Default app ID
+                        const initialAuthToken = null; // No initial token for anonymous auth
+
+                        // --- GLOBAL APP STATE ---
+                        window.app = null;
+                        window.db = null;
+                        window.auth = null;
+                        window.analytics = null;
+                        window.userId = null;
+                        window.experts = []; // To store real-time expert data
+                        window.currentView = 'market'; // 'market' or 'consultancy'
+
+                        // Utility function to safely get elements
+                        const getEl = (id) => document.getElementById(id);
+
+                        // --- FIREBASE INITIALIZATION ---
+                        const initFirebase = async () => {
+                            try {
+                                // Initialize Firebase
+                                window.app = initializeApp(firebaseConfig);
+                                window.analytics = getAnalytics(window.app);
+                                window.db = getFirestore(window.app);
+                                window.auth = getAuth(window.app);
+
+                                // 1. Authenticate
+                                if (initialAuthToken) {
+                                    await signInWithCustomToken(window.auth, initialAuthToken);
+                                } else {
+                                    await signInAnonymously(window.auth);
+                                }
+
+                                onAuthStateChanged(window.auth, (user) => {
+                                    if (user) {
+                                        window.userId = user.uid;
+                                        document.getElementById('user-id-display').textContent = `User ID: ${window.userId}`;
+                                        document.getElementById('firebase-status').textContent = 'Firebase: Connected';
+                                        document.getElementById('firebase-status').classList.remove('text-secondary-yellow');
+                                        document.getElementById('firebase-status').classList.add('text-primary-green');
+
+                                        // 2. Start data listeners after auth
+                                        setupFirestoreListeners();
+                                        // 3. Seed mock experts if collection is empty (for demo purposes)
+                                        seedExperts();
+
+                                    } else {
+                                        console.error("Authentication failed or user signed out.");
+                                        document.getElementById('firebase-status').textContent = 'Firebase: Auth Error';
+                                        document.getElementById('firebase-status').classList.add('text-red-500');
+                                    }
+                                });
+
+                            } catch (error) {
+                                console.error("Error initializing Firebase:", error);
+                                document.getElementById('firebase-status').textContent = `Firebase: Error - ${error.code}`;
+                                document.getElementById('firebase-status').classList.add('text-red-500');
+
+                                // Load mock experts if Firebase fails
+                                window.experts = mockExperts;
+                                renderExperts();
+                            }
+                        };
+
+                        const getExpertsCollectionRef = () => {
+                            return collection(window.db, `artifacts/${appId}/public/data/experts`);
+                        };
+
+                        // --- SEED MOCK EXPERT DATA (Updated with more experts) ---
+                        const mockExperts = [
+                            { name: "Dr. Kavita Sharma", specialization: "Soil Science & Fertilizers", rating: 4.8, price: 500, avatar: 'https://placehold.co/100x100/10B981/ffffff?text=KS', status: 'Online' },
+                            { name: "Mr. Rajeev Singh", specialization: "Grain Market Analysis", rating: 4.5, price: 350, avatar: 'https://placehold.co/100x100/FBBF24/000000?text=RS', status: 'Offline' },
+                            { name: "Vet. Priya Das", specialization: "Livestock & Dairy Farming", rating: 4.9, price: 650, avatar: 'https://placehold.co/100x100/EF4444/ffffff?text=PD', status: 'Busy' },
+                            { name: "Mrs. Leela Devi", specialization: "Organic Fruit Cultivation", rating: 4.7, price: 400, avatar: 'https://placehold.co/100x100/3B82F6/ffffff?text=LD', status: 'Online' },
+                            { name: "Dr. Anil Varma", specialization: "Pest Management & IPM", rating: 4.6, price: 550, avatar: 'https://placehold.co/100x100/8B5CF6/ffffff?text=AV', status: 'Online' },
+                            { name: "Ms. Sania Mirza", specialization: "Hydroponics & Precision Farming", rating: 4.9, price: 700, avatar: 'https://placehold.co/100x100/EC4899/ffffff?text=SM', status: 'Online' },
+                            { name: "Mr. Vishal Gowda", specialization: "Water Management & Irrigation", rating: 4.4, price: 300, avatar: 'https://placehold.co/100x100/F97316/ffffff?text=VG', status: 'Offline' },
+                            { name: "Dr. Fatima Khan", specialization: "Crop Insurance & Policy", rating: 4.3, price: 450, avatar: 'https://placehold.co/100x100/14B8A6/ffffff?text=FK', status: 'Busy' },
+                        ];
+
+                        const seedExperts = async () => {
+                            if (!window.db || !window.userId) return;
+
+                            try {
+                                const expertsRef = getExpertsCollectionRef();
+                                const snapshot = await getDocs(expertsRef);
+
+                                if (snapshot.empty) {
+                                    console.log("Seeding mock experts...");
+                                    for (const expert of mockExperts) {
+                                        // Use setDoc with a unique ID for predictable seeding
+                                        const expertId = expert.name.replace(/\s/g, '-').toLowerCase();
+                                        await setDoc(doc(expertsRef, expertId), {
+                                            ...expert,
+                                            createdAt: serverTimestamp()
+                                        });
+                                    }
+                                    console.log("Expert collection seeded.");
+                                }
+                            } catch (e) {
+                                console.error("Error seeding experts: ", e);
+                            }
+                        };
+
+                        // --- FIRESTORE LISTENERS ---
+                        const setupFirestoreListeners = () => {
+                            if (!window.db) return;
+
+                            // Listen for expert list changes
+                            const expertsRef = getExpertsCollectionRef();
+                            onSnapshot(expertsRef, (snapshot) => {
+                                const newExperts = [];
+                                snapshot.forEach((doc) => {
+                                    newExperts.push({ id: doc.id, ...doc.data() });
+                                });
+                                window.experts = newExperts;
+                                renderExperts();
+                                console.log("Experts updated from Firestore:", newExperts.length);
+                            }, (error) => {
+                                console.error("Error fetching experts:", error);
+                                document.getElementById('experts-list').innerHTML = '<p class="text-red-500 p-4">Error loading experts. Please check console.</p>';
+                            });
+                        };
+
+                        // --- GEMINI MARKET ANALYSIS FUNCTION ---
+                        window.generateMarketAnalysis = async (commodity, mandi, price) => {
+                            // Check if API key is configured
+                            if (API_KEY === "YOUR_GEMINI_API_KEY_HERE") {
+                                openAnalysisModal(commodity, 'API Key Required');
+                                updateAnalysisModal("Please configure your Gemini API key in the code to use this feature. Replace 'YOUR_GEMINI_API_KEY_HERE' with your actual API key.", []);
+                                alertUser('API Key Required', 'Please configure your Gemini API key to use this feature.', 'bg-red-500');
+                                return;
+                            }
+
+                            openAnalysisModal(commodity, 'Loading analysis...');
+                            alertUser('Analysis Running', `Fetching real-time market insights for ${commodity}...`, 'bg-blue-500');
+
+                            const userQuery = `Provide a concise analysis of the current market trends for ${commodity} in the ${mandi} market, where the price is currently ${price} (local currency/unit). Give a short-term price forecast for the next 7 days, and list 3 key factors influencing the price. Use Google Search to ground your answer in the latest agricultural news.`;
+
+                            const systemPrompt = "You are a world-class agricultural market analyst. Your analysis must be concise (max 3 short paragraphs), highly relevant to the commodity and location, and strictly based on the latest web data. Start the analysis immediately without pleasantries. Format the 3 key factors as a bulleted list.";
+
+                            const payload = {
+                                contents: [{ parts: [{ text: userQuery }] }],
+                                tools: [{ "google_search": {} }],
+                                systemInstruction: {
+                                    parts: [{ text: systemPrompt }]
+                                },
+                            };
+
+                            let analysisText = "Failed to generate analysis.";
+                            let sources = [];
+
+                            for (let i = 0; i < MAX_RETRIES; i++) {
+                                try {
+                                    const response = await fetch(API_URL, {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify(payload)
+                                    });
+
+                                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                                    const result = await response.json();
+                                    const candidate = result.candidates?.[0];
+
+                                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                                        analysisText = candidate.content.parts[0].text;
+
+                                        const groundingMetadata = candidate.groundingMetadata;
+                                        if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                                            sources = groundingMetadata.groundingAttributions
+                                                .map(attribution => ({
+                                                    uri: attribution.web?.uri,
+                                                    title: attribution.web?.title,
+                                                }))
+                                                .filter(source => source.uri && source.title);
+                                        }
+
+                                        // Success, break the loop
+                                        break;
+                                    } else {
+                                        throw new Error("Invalid response structure from API.");
+                                    }
+                                } catch (error) {
+                                    console.error(`Attempt ${i + 1} failed:`, error);
+                                    if (i < MAX_RETRIES - 1) {
+                                        const delay = Math.pow(2, i) * 1000;
+                                        await new Promise(resolve => setTimeout(resolve, delay));
+                                    } else {
+                                        analysisText = `The analysis request failed after ${MAX_RETRIES} attempts. Please try again later. Error: ${error.message}`;
+                                    }
+                                }
+                            }
+
+                            // Update the modal with the result
+                            updateAnalysisModal(analysisText, sources);
+                            alertUser('Analysis Complete', `Market insights for ${commodity} are ready.`, 'bg-primary-green');
+                        };
+
+                        // --- UI RENDERING FUNCTIONS ---
+
+                        const renderExperts = () => {
+                            const expertsListEl = getEl('experts-list');
+                            if (!expertsListEl) return;
+
+                            if (window.experts.length === 0) {
+                                expertsListEl.innerHTML = '<p class="text-gray-500 p-4">No experts found. Please wait or check connection.</p>';
+                                return;
+                            }
+
+                            expertsListEl.innerHTML = window.experts.map(expert => {
+                                let statusColor = expert.status === 'Online' ? 'bg-primary-green' : (expert.status === 'Busy' ? 'bg-secondary-yellow' : 'bg-gray-400');
+                                let buttonColor = expert.status === 'Online' ? 'bg-primary-green hover:bg-emerald-600' : 'bg-gray-400 cursor-not-allowed';
+                                let buttonText = expert.status === 'Online' ? 'Book Call' : expert.status;
+
+                                return `
+                <div class="bg-white p-4 rounded-xl shadow-md flex items-center justify-between transition hover:shadow-lg">
+                    <div class="flex items-center">
+                        <div class="relative">
+                            <img src="${expert.avatar}" onerror="this.onerror=null; this.src='https://placehold.co/100x100/94A3B8/ffffff?text=EXPERT'" alt="${expert.name}" class="w-16 h-16 rounded-full object-cover border-2 border-primary-green">
+                            <span class="absolute bottom-0 right-0 h-3 w-3 ${statusColor} rounded-full border-2 border-white"></span>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-lg font-semibold text-gray-800">${expert.name}</p>
+                            <p class="text-sm text-gray-600">${expert.specialization}</p>
+                            <div class="flex items-center mt-1">
+                                <span class="text-secondary-yellow text-sm mr-1">★</span>
+                                <span class="text-sm font-medium text-gray-700">${expert.rating}</span>
+                                <span class="ml-3 text-sm font-bold text-primary-green">₹${expert.price}/hr</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModal('${expert.id}', '${expert.name}', ${expert.price})"
+                            class="text-white font-bold py-2 px-4 rounded-full transition duration-300 ${buttonColor}"
+                            ${expert.status !== 'Online' ? 'disabled' : ''}>
+                        ${buttonText}
+                    </button>
+                </div>
+            `;
+                            }).join('');
+
+                            // Re-render Lucide icons after updating the DOM
+                            lucide.createIcons();
+                        };
+
+                        window.openBookingModal = (expertId, expertName, price) => {
+                            const modalEl = getEl('booking-modal');
+                            const expertNameEl = getEl('modal-expert-name');
+                            const expertPriceEl = getEl('modal-expert-price');
+                            const bookingFormEl = getEl('booking-form');
+
+                            expertNameEl.textContent = expertName;
+                            expertPriceEl.textContent = `Consultation Fee: ₹${price}/hr`;
+                            modalEl.classList.remove('hidden');
+
+                            // Set hidden fields for form submission
+                            bookingFormEl.dataset.expertId = expertId;
+                            bookingFormEl.dataset.expertName = expertName;
+
+                            // Apply modal animation
+                            setTimeout(() => {
+                                modalEl.querySelector('.modal-content-active').classList.remove('scale-95', 'opacity-0');
+                                modalEl.querySelector('.modal-content-active').classList.add('scale-100', 'opacity-100');
+                            }, 10);
+                        };
+
+                        window.closeBookingModal = () => {
+                            const modalEl = getEl('booking-modal');
+                            // Trigger reverse animation
+                            modalEl.querySelector('.modal-content-active').classList.remove('scale-100', 'opacity-100');
+                            modalEl.querySelector('.modal-content-active').classList.add('scale-95', 'opacity-0');
+                            setTimeout(() => {
+                                modalEl.classList.add('hidden');
+                            }, 300);
+                        };
+
+                        const displayEmailConfirmation = (expertName, farmerName, date, time) => {
+                            const box = getEl('email-confirmation-box');
+                            const details = getEl('email-details');
+                            const notificationEmail = "hiteshlokare3@gmail.com";
+
+                            details.innerHTML = `
+            <p><span class="font-medium">Recipient:</span> ${notificationEmail}</p>
+            <p><span class="font-medium">Expert:</span> ${expertName}</p>
+            <p><span class="font-medium">Farmer:</span> ${farmerName}</p>
+            <p><span class="font-medium">Time Slot:</span> ${date} @ ${time}</p>
+        `;
+                            box.classList.remove('hidden', 'opacity-0');
+                            box.classList.add('opacity-100');
+                            lucide.createIcons();
+
+                            // Hide after 15 seconds
+                            setTimeout(() => {
+                                box.classList.add('opacity-0');
+                                setTimeout(() => box.classList.add('hidden'), 500);
+                            }, 15000);
+                        };
+
+                        window.handleBooking = async (event) => {
+                            event.preventDefault();
+                            const form = event.target;
+                            const expertId = form.dataset.expertId;
+                            const expertName = form.dataset.expertName;
+
+                            // Get all form values
+                            const name = form.elements['name'].value;
+                            const phone = form.elements['phone'].value;
+                            const email = form.elements['email'].value;
+                            const farmLocation = form.elements['farm-location'].value;
+                            const farmSize = form.elements['farm-size'].value;
+                            const cropType = form.elements['crop-type'].value;
+                            const urgency = form.elements['urgency'].value;
+                            const issue = form.elements['issue'].value;
+                            const date = form.elements['date'].value;
+                            const time = form.elements['time'].value;
+
+                            // Get checkbox values
+                            const phoneConsultation = form.elements['phone-consultation'].checked;
+                            const videoConsultation = form.elements['video-consultation'].checked;
+                            const farmVisit = form.elements['farm-visit'].checked;
+
+                            const notificationEmail = "hiteshlokare3@gmail.com"; // Admin email
+
+                            if (!window.db || !window.userId) {
+                                // If Firebase is not connected, still show confirmation
+                                console.log(`--- NEW CONSULTATION BOOKING NOTIFICATION (Firebase not connected) ---`);
+                                console.log(`Recipient Email: ${notificationEmail}`);
+                                console.log(`Booking Details:`);
+                                console.log(`Expert: ${expertName} (${expertId})`);
+                                console.log(`Farmer: ${name} (${email}, ${phone})`);
+                                console.log(`Farm Details: ${farmLocation}, ${farmSize} acres, ${cropType}`);
+                                console.log(`Urgency: ${urgency}`);
+                                console.log(`Issue: ${issue}`);
+                                console.log(`Communication Preferences: Phone=${phoneConsultation}, Video=${videoConsultation}, Farm Visit=${farmVisit}`);
+                                console.log(`Scheduled: ${date} at ${time}`);
+                                console.log(`-------------------------------------------`);
+
+                                alertUser('Booking Submitted!', `Your consultation with ${expertName} on ${date} at ${time} has been submitted.`, 'bg-primary-green');
+                                closeBookingModal();
+                                form.reset();
+                                displayEmailConfirmation(expertName, name, date, time);
+                                return;
+                            }
+
+                            try {
+                                // A simplified public collection for consultation requests
+                                const requestsRef = collection(window.db, `artifacts/${appId}/public/data/consultation_requests`);
+
+                                const newRequest = {
+                                    expertId,
+                                    expertName,
+                                    farmerName: name,
+                                    farmerEmail: email,
+                                    farmerPhone: phone,
+                                    farmerId: window.userId,
+                                    farmLocation,
+                                    farmSize,
+                                    cropType,
+                                    urgency,
+                                    issueSummary: issue,
+                                    preferredDate: date,
+                                    preferredTime: time,
+                                    phoneConsultation,
+                                    videoConsultation,
+                                    farmVisit,
+                                    status: 'Pending',
+                                    timestamp: serverTimestamp()
+                                };
+
+                                await addDoc(requestsRef, newRequest);
+
+                                // --- NEW FEATURE: Email Notification Simulation (Console Log) ---
+                                console.log(`--- NEW CONSULTATION BOOKING NOTIFICATION ---`);
+                                console.log(`Recipient Email: ${notificationEmail}`);
+                                console.log(`Booking Details:`);
+                                console.log(`Expert: ${expertName} (${expertId})`);
+                                console.log(`Farmer: ${name} (${email}, ${phone})`);
+                                console.log(`Farm Details: ${farmLocation}, ${farmSize} acres, ${cropType}`);
+                                console.log(`Urgency: ${urgency}`);
+                                console.log(`Issue: ${issue}`);
+                                console.log(`Communication Preferences: Phone=${phoneConsultation}, Video=${videoConsultation}, Farm Visit=${farmVisit}`);
+                                console.log(`Scheduled: ${date} at ${time}`);
+                                console.log(`-------------------------------------------`);
+                                // --- END NEW FEATURE ---
+
+                                alertUser('Booking Successful!', `Your consultation with ${expertName} on ${date} at ${time} is pending confirmation.`, 'bg-primary-green');
+                                closeBookingModal();
+                                form.reset();
+
+                                // Call new function to display confirmation on the UI
+                                displayEmailConfirmation(expertName, name, date, time);
+
+                            } catch (error) {
+                                console.error("Error submitting booking:", error);
+                                alertUser('Booking Error', `Could not submit request: ${error.message}`, 'bg-red-500');
+                            }
+                        };
+
+                        // --- ANALYSIS MODAL FUNCTIONS ---
+
+                        window.openAnalysisModal = (commodity, initialContent) => {
+                            const modalEl = getEl('analysis-modal');
+                            getEl('analysis-title').textContent = `${commodity} Market Insight`;
+                            getEl('analysis-content').innerHTML = `<div class="p-8 text-center text-gray-500"><svg class="animate-spin h-5 w-5 mr-3 inline text-primary-green" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="4" stroke="currentColor" stroke-linecap="round" stroke-dasharray="32" stroke-dashoffset="0"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>${initialContent}</div>`;
+                            getEl('analysis-sources').innerHTML = '';
+                            modalEl.classList.remove('hidden');
+
+                            setTimeout(() => {
+                                modalEl.querySelector('.modal-content-active').classList.remove('scale-95', 'opacity-0');
+                                modalEl.querySelector('.modal-content-active').classList.add('scale-100', 'opacity-100');
+                            }, 10);
+                        };
+
+                        window.updateAnalysisModal = (markdownText, sources) => {
+                            const contentEl = getEl('analysis-content');
+                            const sourcesEl = getEl('analysis-sources');
+
+                            // Simple Markdown to HTML conversion for bullet points
+                            let htmlContent = markdownText.replace(/\n\s*-\s/g, '</li><li class="mt-2 flex items-start"><span data-lucide="check-circle" class="w-4 h-4 mr-2 text-primary-green flex-shrink-0 mt-1"></span>');
+                            htmlContent = htmlContent.replace(/\*/g, '•'); // Replace * with •
+                            htmlContent = `<ul class="list-none p-0 ml-0">${htmlContent}</li></ul>`;
+                            // Remove the initial </li>
+                            htmlContent = htmlContent.replace('</li>', '');
+
+                            contentEl.innerHTML = `<div class="prose max-w-none text-gray-700 leading-relaxed">${htmlContent}</div>`;
+                            lucide.createIcons(); // Re-render icons after adding content
+
+                            if (sources.length > 0) {
+                                sourcesEl.innerHTML = `
+                <h4 class="text-md font-semibold text-gray-800 mt-4 mb-2 border-t pt-3">Grounding Sources:</h4>
+                <ul class="space-y-1 text-sm text-gray-600">
+                    ${sources.map((source, index) => `
+                        <li>
+                            <a href="${source.uri}" target="_blank" class="text-blue-600 hover:text-blue-800 truncate block">
+                                <span class="font-medium">Source ${index + 1}:</span> ${source.title}
+                            </a>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+                            } else {
+                                sourcesEl.innerHTML = '<p class="text-sm text-gray-500 mt-4">No specific web sources found for grounding this analysis.</p>';
+                            }
+                        };
+
+                        window.closeAnalysisModal = () => {
+                            const modalEl = getEl('analysis-modal');
+                            modalEl.querySelector('.modal-content-active').classList.remove('scale-100', 'opacity-100');
+                            modalEl.querySelector('.modal-content-active').classList.add('scale-95', 'opacity-0');
+                            setTimeout(() => {
+                                modalEl.classList.add('hidden');
+                            }, 300);
+                        };
+
+                        // --- GLOBAL ALERT/MESSAGE BOX FUNCTION ---
+                        window.alertUser = (title, message, bgColor) => {
+                            const box = getEl('global-message-box');
+                            getEl('alert-title').textContent = title;
+                            getEl('alert-message').textContent = message;
+                            box.className = `fixed bottom-4 right-4 p-4 rounded-lg shadow-xl text-white z-50 transition-all duration-300 transform translate-y-full opacity-0 ${bgColor}`;
+                            box.classList.remove('translate-y-full', 'opacity-0');
+                            box.classList.add('translate-y-0', 'opacity-100');
+
+                            setTimeout(() => {
+                                box.classList.remove('translate-y-0', 'opacity-100');
+                                box.classList.add('translate-y-full', 'opacity-0');
+                            }, 5000);
+                        };
+
+                        // --- TAB SWITCHING ---
+                        window.switchView = (view) => {
+                            window.currentView = view;
+                            const marketContent = getEl('market-content');
+                            const consultancyContent = getEl('consultancy-content');
+                            const marketTab = getEl('market-tab');
+                            const consultancyTab = getEl('consultancy-tab');
+
+                            if (view === 'market') {
+                                marketContent.classList.remove('hidden');
+                                consultancyContent.classList.add('hidden');
+                                marketTab.classList.add('border-primary-green', 'text-primary-green');
+                                consultancyTab.classList.remove('border-primary-green', 'text-primary-green');
+                            } else {
+                                marketContent.classList.add('hidden');
+                                consultancyContent.classList.remove('hidden');
+                                marketTab.classList.remove('border-primary-green', 'text-primary-green');
+                                consultancyTab.classList.add('border-primary-green', 'text-primary-green');
+                            }
+                        };
+
+                        // --- MARKET DATA SIMULATION (Updated with more products) ---
+
+                        const initialMarketData = [
+                            { id: 1, name: "Wheat (Grade A)", mandi: "Pune Market", currentPrice: 2200, unit: "₹/Quintal", trend: 1.5 },
+                            { id: 2, name: "Basmati Rice", mandi: "Delhi Mandi", currentPrice: 5800, unit: "₹/Quintal", trend: -0.8 },
+                            { id: 3, name: "Tomato (Hybrid)", mandi: "Bengaluru KR", currentPrice: 45, unit: "₹/Kg", trend: 5.2 },
+                            { id: 4, name: "Onion (Nashik Red)", mandi: "Mumbai APMC", currentPrice: 28, unit: "₹/Kg", trend: -2.1 },
+                            { id: 5, name: "Mango (Alphonso)", mandi: "Ratnagiri", currentPrice: 180, unit: "₹/Kg", trend: 3.0 },
+                            { id: 6, name: "Mustard Seed", mandi: "Jaipur Mandi", currentPrice: 6500, unit: "₹/Quintal", trend: 0.1 },
+                            { id: 7, name: "Potato (Pukhraj)", mandi: "Agra Market", currentPrice: 15, unit: "₹/Kg", trend: -1.5 },
+                            { id: 8, name: "Soybean", mandi: "Indore Mandi", currentPrice: 4800, unit: "₹/Quintal", trend: 0.9 },
+                            { id: 9, name: "Cotton (Shankar-6)", mandi: "Ahmedabad", currentPrice: 7200, unit: "₹/Quintal", trend: -1.2 },
+                            { id: 10, name: "Cauliflower", mandi: "Kolkata Market", currentPrice: 32, unit: "₹/Kg", trend: 4.1 },
+                            { id: 11, name: "Cumin Seed (Jeera)", mandi: "Unjha APMC", currentPrice: 35000, unit: "₹/Quintal", trend: 6.5 },
+                            { id: 12, name: "Green Gram (Moong)", mandi: "Nagpur Market", currentPrice: 8500, unit: "₹/Quintal", trend: 2.3 },
+                            { id: 13, name: "Black Gram (Urad)", mandi: "Ludhiana Mandi", currentPrice: 7500, unit: "₹/Quintal", trend: -0.5 },
+                            { id: 14, name: "Pigeon Pea (Tur)", mandi: "Hyderabad Market", currentPrice: 6800, unit: "₹/Quintal", trend: 1.2 },
+                            { id: 15, name: "Chickpea (Gram)", mandi: "Kanpur Mandi", currentPrice: 5200, unit: "₹/Quintal", trend: 0.8 },
+                            { id: 16, name: "Maize", mandi: "Chennai Market", currentPrice: 2100, unit: "₹/Quintal", trend: -1.8 },
+                            { id: 17, name: "Bajra (Pearl Millet)", mandi: "Jaipur Market", currentPrice: 2400, unit: "₹/Quintal", trend: 3.5 },
+                            { id: 18, name: "Jowar (Sorghum)", mandi: "Solapur Market", currentPrice: 2800, unit: "₹/Quintal", trend: 2.1 },
+                            { id: 19, name: "Groundnut", mandi: "Rajkot Mandi", currentPrice: 6200, unit: "₹/Quintal", trend: -2.3 },
+                            { id: 20, name: "Sesame Seed", mandi: "Gwalior Market", currentPrice: 12000, unit: "₹/Quintal", trend: 4.7 },
+                            { id: 21, name: "Sunflower", mandi: "Bengaluru Market", currentPrice: 5800, unit: "₹/Quintal", trend: 1.9 },
+                            { id: 22, name: "Sugarcane", mandi: "Maharashtra", currentPrice: 320, unit: "₹/Quintal", trend: 0.3 },
+                            { id: 23, name: "Jute", mandi: "Kolkata Market", currentPrice: 4200, unit: "₹/Quintal", trend: -1.7 },
+                            { id: 24, name: "Tea (Assam)", mandi: "Guwahati Market", currentPrice: 180, unit: "₹/Kg", trend: 2.8 },
+                            { id: 25, name: "Coffee (Arabica)", mandi: "Coorg Market", currentPrice: 320, unit: "₹/Kg", trend: -0.9 },
+                            { id: 26, name: "Rubber", mandi: "Kottayam Market", currentPrice: 150, unit: "₹/Kg", trend: 1.5 },
+                            { id: 27, name: "Coconut", mandi: "Kochi Market", currentPrice: 28, unit: "₹/Piece", trend: 3.2 },
+                            { id: 28, name: "Cashew Nut", mandi: "Goa Market", currentPrice: 750, unit: "₹/Kg", trend: -2.4 },
+                            { id: 29, name: "Black Pepper", mandi: "Kochi Market", currentPrice: 650, unit: "₹/Kg", trend: 5.6 },
+                            { id: 30, name: "Cardamom", mandi: "Kerala Market", currentPrice: 1200, unit: "₹/Kg", trend: 4.3 },
+                            { id: 31, name: "Turmeric", mandi: "Nizamabad Market", currentPrice: 8500, unit: "₹/Quintal", trend: 2.7 },
+                            { id: 32, name: "Red Chili", mandi: "Guntur Market", currentPrice: 12000, unit: "₹/Quintal", trend: -3.1 }
+                        ];
+
+                        window.marketData = initialMarketData;
+
+                        const generatePriceUpdate = () => {
+                            const index = Math.floor(Math.random() * window.marketData.length);
+                            const commodity = window.marketData[index];
+
+                            // Calculate a new price: small random fluctuation
+                            const fluctuation = (Math.random() * 2 - 1) * 0.01; // +/- 1% change max
+                            const newPrice = commodity.currentPrice * (1 + fluctuation);
+                            const newTrend = parseFloat((fluctuation * 100 * 2).toFixed(2)); // New trend based on fluctuation
+
+                            commodity.currentPrice = parseFloat(newPrice.toFixed(0));
+                            commodity.trend = newTrend;
+                            commodity.updated = true; // Mark as updated for visual flash
+                        };
+
+                        const renderMarketPrices = () => {
+                            const marketListEl = getEl('market-price-list');
+                            if (!marketListEl) return;
+
+                            marketListEl.innerHTML = window.marketData.map(item => {
+                                const trendIcon = item.trend >= 0 ?
+                                    `<span class="text-primary-green mr-1" data-lucide="trending-up"></span>` :
+                                    `<span class="text-red-500 mr-1" data-lucide="trending-down"></span>`;
+                                const trendColor = item.trend >= 0 ? 'text-primary-green' : 'text-red-500';
+                                const trendSign = item.trend >= 0 ? '+' : '';
+
+                                // Add the price-flash class conditionally
+                                const priceClass = item.updated ? 'price-flash' : '';
+
+                                return `
+                <div id="price-row-${item.id}" class="grid grid-cols-6 md:grid-cols-12 gap-4 items-center py-3 border-b last:border-b-0 px-4 bg-white/50 hover:bg-white transition duration-200 rounded-lg">
+                    <div class="col-span-3 md:col-span-3 flex items-center">
+                        <span class="mr-2 text-xl text-soil-brown" data-lucide="pocket"></span>
+                        <span class="font-medium text-gray-800 text-sm md:text-base">${item.name}</span>
+                    </div>
+                    <div class="col-span-2 md:col-span-2 text-sm text-gray-600 truncate">${item.mandi}</div>
+                    <div class="col-span-2 md:col-span-2 text-right font-bold text-gray-900 text-base md:text-xl ${priceClass}">
+                        ${item.currentPrice.toLocaleString()}<span class="text-xs font-normal ml-1 text-gray-500">${item.unit}</span>
+                    </div>
+                    <div class="col-span-2 md:col-span-2 text-right flex items-center justify-end text-sm ${trendColor} hidden md:flex">
+                        ${trendIcon}
+                        <span class="font-semibold">${trendSign}${Math.abs(item.trend).toFixed(2)}%</span>
+                    </div>
+                    <div class="col-span-6 md:col-span-3 text-right">
+                         <button onclick="generateMarketAnalysis('${item.name}', '${item.mandi}', ${item.currentPrice})"
+                            class="bg-primary-green/10 text-primary-green hover:bg-primary-green hover:text-white font-semibold py-1 px-3 rounded-full text-xs transition duration-300 whitespace-nowrap">
+                            ✨ Analyze Price
+                        </button>
+                    </div>
+                </div>
+            `;
+                            }).join('');
+
+                            // After rendering, reset the 'updated' flag and re-render Lucide icons
+                            window.marketData.forEach(item => item.updated = false);
+                            lucide.createIcons();
+                        };
+
+                        // --- MAIN APP INIT ---
+                        window.onload = () => {
+                            // Initial data load
+                            renderMarketPrices();
+
+                            // Setup real-time simulation
+                            setInterval(() => {
+                                generatePriceUpdate();
+                                renderMarketPrices();
+                            }, 2000); // Update every 2 seconds
+
+                            // Initialize Firebase and start listeners
+                            initFirebase();
+
+                            // Show content after initial load
+                            getEl('main-dashboard').classList.remove('hidden-until-loaded');
+
+                            // Event listener to close modal when clicking outside
+                            document.getElementById('analysis-modal').addEventListener('click', (e) => {
+                                if (e.target.id === 'analysis-modal') {
+                                    closeAnalysisModal();
+                                }
+                            });
+                            document.getElementById('booking-modal').addEventListener('click', (e) => {
+                                if (e.target.id === 'booking-modal') {
+                                    closeBookingModal();
+                                }
+                            });
+
+                        };
+                    </script>
+                </body>
+
+</html>
+<!-- Shop by Brands Section -->
+<section class="mb-12">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-2">Shop by Brands</h2>
+        <p class="text-gray-600">Choose from our trusted agricultural brands</p>
+    </div>
+
+    <div class="brand-carousel-container">
+        <div id="brand-carousel-track" class="brand-carousel-track">
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand1')">
+                    <img src="https://www.vaniperen.com/wp-content/uploads/2018/06/Logo_Van_Iperen_Pay_off_FC-Small-Web.png"
+                        alt="Brand 1" class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand2')">
+                    <img src="https://e7.pngegg.com/pngimages/713/979/png-clipart-indian-farmers-fertiliser-cooperative-indian-farmers-fertiliser-cooperative-agriculture-india-text-trademark.png"
+                        alt="Brand 2" class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand3')">
+                    <img src="https://www.logo.wine/a/logo/Corteva/Corteva-Logo.wine.svg" alt="Brand 3"
+                        class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand4')">
+                    <img src="https://images.seeklogo.com/logo-png/38/1/rallis-india-limited-logo-png_seeklogo-384713.png"
+                        alt="Brand 4" class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand5')">
+                    <img src="https://sumitomoelectric.com/sites/default/files/styles/crop_sei_cp_656x410/public/2021-01/products/overview_card/Untitled-1_0.png?h=9a5386c6&itok=a4pL4qsC"
+                        alt="Brand 5" class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand6')">
+                    <img src="https://www.vragroindustries.com/wp-content/uploads/2024/01/Picture-2.png" alt="Brand 6"
+                        class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand7')">
+                    <img src="https://logos-world.net/wp-content/uploads/2022/06/BASF-Logo.jpg" alt="Brand 7"
+                        class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand8')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx0nGnjRw9xsLKOQE-BBSdgXjmDbybtVZTyg&s"
+                        alt="Brand 8" class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand9')">
+                    <img src="brand-img.png" alt="Brand 9" class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand10')">
+                    <img src="https://revaflora.com/wp-content/uploads/2018/03/cropped-revaflora-fav-icon.png"
+                        alt="Brand 10" class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand11')">
+                    <img src="https://erodeagrogroup.com/upload/Sulphur_Mills.jpg" alt="Brand 11" class="brand-logo">
+                </div>
+            </div>
+            <div class="brand-carousel-slide">
+                <div class="brand-card" onclick="filterByBrand('brand12')">
+                    <img src="https://iconape.com/wp-content/png_logo_vector/coromandel-logo.png" alt="Brand 12"
+                        class="brand-logo">
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control prev" onclick="moveBrandCarousel(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-control next" onclick="moveBrandCarousel(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</section>
+<!-- WhatsApp Community Section -->
+<section class="mb-12">
+    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center p-8">
+            <div class="text-content md:w-1/2 mb-6 md:mb-0 md:pr-8">
+                <h2 class="text-3xl font-bold text-white mb-4">Join our WhatsApp community for
+                    expert
+                    agronomy updates</h2>
+                <p class="text-gray-300 mb-6">Connect with farmers, get expert advice, and stay
+                    updated
+                    with the latest agricultural trends and practices.</p>
+                <a href="https://chat.whatsapp.com/IPwrXZ5xYvS3lQVBrZ0Izf?mode=wwt"
+                    class="inline-block px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors duration-300"
+                    target="_blank" rel="noopener noreferrer">
+                    Join Now
+                </a>
+            </div>
+
+            <div class="mockup-container md:w-1/2 flex justify-center">
+                <div class="w-full max-w-sm">
+                    <img src="components/whats-image.jpg" alt="WhatsApp Community" class="w-full rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section - Updated with circular design -->
+<section class="categories-section">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-2">Shop by Category</h2>
+        <p class="text-gray-600">Browse our wide range of agriculture products</p>
+    </div>
+
+    <div class="categories-container" id="categories">
+        <!-- Categories will be inserted by JS -->
+    </div>
+</section>
+<!-- Featured Products Section -->
+<section>
+    <div class="text-center mb-4">
+        <h2 class="text-2xl font-bold">Featured Products</h2>
+    </div>
+    <div class="flex justify-end mb-6">
+        <a href="#" onclick="showView('products')" class="text-green-600 hover:underline">View
+            All</a>
+    </div>
+    <div id="featured-products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+        <!-- Products will be loaded here -->
+    </div>
+</section>
+
+<!-- User Feedback Section -->
+<section class="mt-12">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-2">What Our Customers Say</h2>
+        <p class="text-gray-600">Read reviews from our satisfied customers</p>
+    </div>
+
+    <div class="feedback-carousel-container">
+        <div id="feedback-carousel-track" class="feedback-carousel-track">
+            <div class="feedback-carousel-slide">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="feedback-images/Ramesh Kumar.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Ramesh Kumar</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"AgriShop has been a game-changer for my farm. The
+                        quality
+                        of seeds and fertilizers is exceptional, and the delivery is always on time.
+                        Highly recommended!"</p>
+                </div>
+            </div>
+            <div class="feedback-carousel-slide">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="feedback-images/Priya sharma.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Priya Sharma</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"I've been buying from AgriShop for two years now.
+                        Their
+                        organic products have significantly improved my crop yield. The customer
+                        service
+                        is also excellent."</p>
+                </div>
+            </div>
+            <div class="feedback-carousel-slide">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="feedback-images/Amit Patel.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Amit Patel</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"The range of products at AgriShop is impressive. I can
+                        find everything I need in one place. The prices are also competitive
+                        compared to
+                        other suppliers."</p>
+                </div>
+            </div>
+            <div class="feedback-carousel-slide">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="feedback-images/Suresh Reddy.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Suresh Reddy</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"The farming tools I rented from AgriShop were of
+                        excellent
+                        quality and helped me save a lot of money. The rental process was smooth and
+                        hassle-free."</p>
+                </div>
+            </div>
+            <div class="feedback-carousel-slide">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="feedback-images/Anita Desai.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Anita Desai</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"AgriShop's expert advice has helped me transition to
+                        organic farming successfully. Their team is knowledgeable and always ready
+                        to
+                        help."</p>
+                </div>
+            </div>
+            <div class="feedback-carousel-slide">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <img src="feedback-images/Rajesh Singh.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Rajesh Singh</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"The WhatsApp community is a great addition. I can
+                        connect
+                        with other farmers and share experiences. It's like having a support group
+                        at my
+                        fingertips."</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control prev" onclick="moveFeedbackCarousel(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-control next" onclick="moveFeedbackCarousel(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="text-center mt-8">
+        <button onclick="showView('contact')" class="modern-button">
+            Leave a Review
+        </button>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="mt-12">
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-2">Frequently Asked Questions</h2>
+        <p class="text-gray-600">Find answers to common questions about our products and services
+        </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>How do I place an order on AgriShop?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                Placing an order on AgriShop is simple. Browse our products, add items to your cart,
+                and
+                proceed to checkout. You'll need to provide your shipping information and payment
+                details to complete the order.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Do you offer organic products?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                Yes, we offer a wide range of organic products including seeds, fertilizers, and
+                pesticides. All our organic products are certified and meet the highest standards of
+                quality.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>How long does delivery take?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                Standard delivery takes 3-5 business days. We also offer express delivery options
+                for
+                urgent orders. Delivery times may vary based on your location and product
+                availability.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>Can I rent farming equipment from AgriShop?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                Yes, we offer a farming equipment rental service. You can browse our available tools
+                and
+                equipment, select the ones you need, and rent them for the required duration. This
+                is
+                especially useful for expensive equipment that you may only need occasionally.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <span>What is your return policy?</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer">
+                We offer a 7-day return policy for most products. If you're not satisfied with your
+                purchase, you can return it in its original packaging for a full refund or exchange.
+                Some restrictions may apply to certain products.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section mt-12">
+    <div class="text-center p-6">
+        <h2 class="text-3xl font-bold mb-2">Visit Our Store</h2>
+        <p class="text-gray-600">Come and explore our wide range of agriculture products in person
+        </p>
+    </div>
+
+    <div class="map-container">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.191741842511!2d73.84286441482284!3d18.462599387418925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfd4f5f8f9a3%3A0x8f5c5b8c5f5c5b8c!2sNarhe%2C%20Pune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1628687995232!5m2!1sen!2sin"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+
+        <div class="map-overlay">
+            <div class="map-info">
+                <h3>AgriShop Store</h3>
+                <p>123 Farm Road, Narhe, Pune, Maharashtra</p>
+                <p>Open: Monday - Saturday, 9:00 AM - 6:00 PM</p>
+                <a href="#" onclick="showView('contact')" class="map-button">Get Directions</a>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+
+<!-- Products View -->
+<div id="products-view" class="view hidden">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-2">All Products</h1>
+        <p class="text-gray-600">Browse our wide range of agriculture products</p>
+    </div>
+
+    <!-- Filters and Sorting -->
+    <div class="bg-white p-4 rounded-xl shadow mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterByCategory('all')"
+                    class="filter-btn px-4 py-2 bg-green-500 text-white rounded-lg">All</button>
+                <button onclick="filterByCategory('seeds')"
+                    class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Seeds</button>
+                <button onclick="filterByCategory('fertilizers')"
+                    class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Fertilizers</button>
+                <button onclick="filterByCategory('tools')"
+                    class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Tools</button>
+                <button onclick="filterByCategory('pesticides')"
+                    class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Pesticides</button>
+            </div>
+            <div>
+                <select id="sort-select" onchange="sortProducts()"
+                    class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
+                    <option value="default">Sort by</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Subcategories -->
+        <div id="subcategories-container" class="mt-4 hidden">
+            <h3 class="font-semibold mb-2">Subcategories:</h3>
+            <div id="subcategories-list" class="flex flex-wrap gap-2">
+                <!-- Subcategories will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="overflow-x-auto pb-4">
+        <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 min-w-max">
+            <!-- Products will be loaded here -->
+        </div>
+    </div>
+    <!-- Products will be loaded here -->
+</div>
+</div>
+
+<!-- Product Detail View -->
+<div id="product-detail-view" class="view hidden">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="md:flex">
+            <div class="md:w-1/2 p-6">
+                <img id="detail-image" src="" alt="" class="w-full h-96 object-contain">
+            </div>
+            <div class="md:w-1/2 p-6">
+                <h2 id="detail-name" class="text-3xl font-bold mb-2"></h2>
+                <p id="detail-category" class="text-gray-600 mb-4"></p>
+                <div class="flex items-center mb-4">
+                    <span id="detail-price" class="text-2xl font-bold text-green-600 mr-4"></span>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="text-gray-600 ml-2">(24 reviews)</span>
+                    </div>
+                </div>
+                <p id="detail-description" class="text-gray-700 mb-6"></p>
+
+                <div class="mb-6">
+                    <h3 class="font-semibold mb-2">Quantity</h3>
+                    <div class="flex items-center">
+                        <button onclick="decreaseQuantity()"
+                            class="bg-gray-200 px-3 py-1 rounded-l-lg hover:bg-gray-300">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" id="quantity" value="1" min="1"
+                            class="w-16 text-center border-y border-gray-200 py-1">
+                        <button onclick="increaseQuantity()"
+                            class="bg-gray-200 px-3 py-1 rounded-r-lg hover:bg-gray-300">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex space-x-4">
+                    <button onclick="addToCartFromDetail()" class="flex-1 modern-button">
+                        <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
+                    </button>
+                    <button class="bg-gray-200 text-gray-800 px-4 py-3 rounded-lg hover:bg-gray-300 transition">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+
+                <div class="mt-8 border-t pt-6">
+                    <h3 class="font-semibold mb-2">Product Details</h3>
+                    <ul id="detail-features" class="text-gray-700 space-y-1">
+                        <!-- Features will be loaded here -->
+                    </ul>
+                </div>
+
+                <div class="mt-8 border-t pt-6">
+                    <h3 class="font-semibold mb-2">Additional Information</h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="font-semibold">Brand:</span>
+                            <span id="detail-brand"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">SKU:</span>
+                            <span id="detail-sku"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Weight:</span>
+                            <span id="detail-weight"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Dimensions:</span>
+                            <span id="detail-dimensions"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Origin:</span>
+                            <span id="detail-origin"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Shelf Life:</span>
+                            <span id="detail-shelf-life"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 border-t pt-6">
+                    <h3 class="font-semibold mb-2">Usage Instructions</h3>
+                    <p id="detail-usage" class="text-gray-700"></p>
+                </div>
+
+                <div class="mt-8 border-t pt-6">
+                    <h3 class="font-semibold mb-2">Safety Information</h3>
+                    <p id="detail-safety" class="text-gray-700"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews-container mt-8">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold">Customer Reviews</h3>
+            <button class="add-review-btn">
+                <i class="fas fa-plus"></i> Add Review
+            </button>
+        </div>
+
+        <div id="reviews-list">
+            <!-- Reviews will be loaded here -->
+        </div>
+    </div>
+
+    <div class="mt-8">
+        <h3 class="text-xl font-bold mb-4">Related Products</h3>
+        <div id="related-products" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Related products will be loaded here -->
+        </div>
+    </div>
+</div>
+<!-- Tools Rental View -->
+<div id="tools-rental-view" class="view hidden">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-2">Farming Tools for Rent</h1>
+        <p class="text-gray-600">Rent or share farming tools at affordable prices</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white p-4 rounded-xl shadow mb-6">
+        <div class="flex flex-wrap gap-2">
+            <button onclick="filterTools('all')" class="filter-btn px-4 py-2 bg-green-500 text-white rounded-lg">All
+                Tools</button>
+            <button onclick="filterTools('tillage')"
+                class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Tillage</button>
+            <button onclick="filterTools('planting')"
+                class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Planting</button>
+            <button onclick="filterTools('irrigation')"
+                class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Irrigation</button>
+            <button onclick="filterTools('harvesting')"
+                class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Harvesting</button>
+        </div>
+    </div>
+
+    <!-- Tools Grid -->
+    <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Tools will be loaded here -->
+    </div>
+
+    <!-- Rental Form Modal -->
+    <div id="rental-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Tool Rental Request</h2>
+                <button onclick="closeRentalModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Tool Information -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                <div class="flex items-center">
+                    <img id="rental-tool-image" src="" alt="" class="w-20 h-20 object-cover rounded-lg mr-4">
+                    <div>
+                        <h3 id="rental-tool-name" class="text-lg font-semibold"></h3>
+                        <p id="rental-tool-owner" class="text-gray-600"></p>
+                        <p id="rental-tool-location" class="text-gray-600"></p>
+                    </div>
+                    <div class="ml-auto text-right">
+                        <p class="text-gray-600">Daily Rate</p>
+                        <p id="rental-tool-price" class="text-xl font-bold text-green-600"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rental Form -->
+            <form id="rental-form" class="rental-form-container">
+                <div class="rental-form-grid">
+                    <div class="rental-form-group">
+                        <label class="rental-form-label" for="renter-name">Full Name</label>
+                        <input type="text" id="renter-name" class="rental-form-input" required>
+                    </div>
+
+                    <div class="rental-form-group">
+                        <label class="rental-form-label" for="renter-phone">Phone Number</label>
+                        <input type="tel" id="renter-phone" class="rental-form-input" required>
+                    </div>
+
+                    <div class="rental-form-group">
+                        <label class="rental-form-label" for="renter-email">Email Address</label>
+                        <input type="email" id="renter-email" class="rental-form-input" required>
+                    </div>
+
+                    <div class="rental-form-group">
+                        <label class="rental-form-label" for="rental-date">Rental Date</label>
+                        <input type="date" id="rental-date" class="rental-form-input" required>
+                    </div>
+
+                    <div class="rental-form-group">
+                        <label class="rental-form-label" for="rental-duration">Duration (Days)</label>
+                        <select id="rental-duration" class="rental-form-select" required>
+                            <option value="1">1 Day</option>
+                            <option value="2">2 Days</option>
+                            <option value="3">3 Days</option>
+                            <option value="5">5 Days</option>
+                            <option value="7">1 Week</option>
+                            <option value="14">2 Weeks</option>
+                            <option value="30">1 Month</option>
+                        </select>
+                    </div>
+
+                    <div class="rental-form-group">
+                        <label class="rental-form-label" for="farm-size">Farm Size (Acres)</label>
+                        <input type="number" id="farm-size" class="rental-form-input" min="0.1" step="0.1" required>
+                    </div>
+
+                    <div class="rental-form-group full-width">
+                        <label class="rental-form-label" for="farm-location">Farm Location</label>
+                        <input type="text" id="farm-location" class="rental-form-input"
+                            placeholder="Village, District, State" required>
+                    </div>
+
+                    <div class="rental-form-group full-width">
+                        <label class="rental-form-label" for="rental-purpose">Purpose of Rental</label>
+                        <textarea id="rental-purpose" class="rental-form-textarea"
+                            placeholder="Please describe how you plan to use this tool..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Rental Summary -->
+                <div class="rental-summary">
+                    <h3 class="text-lg font-semibold mb-3">Rental Summary</h3>
+                    <div class="rental-summary-item">
+                        <span>Tool:</span>
+                        <span id="summary-tool-name"></span>
+                    </div>
+                    <div class="rental-summary-item">
+                        <span>Daily Rate:</span>
+                        <span id="summary-daily-rate"></span>
+                    </div>
+                    <div class="rental-summary-item">
+                        <span>Duration:</span>
+                        <span id="summary-duration"></span>
+                    </div>
+                    <div class="rental-summary-item">
+                        <span>Delivery Charges:</span>
+                        <span id="summary-delivery">₹200</span>
+                    </div>
+                    <div class="rental-summary-total">
+                        <span>Total Amount:</span>
+                        <span id="summary-total"></span>
+                    </div>
+                </div>
+
+                <div class="rental-form-actions">
+                    <button type="button" onclick="closeRentalModal()"
+                        class="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                        Submit Rental Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Cart View -->
+<div id="cart-view" class="view hidden">
+    <h1 class="text-3xl font-bold mb-6">Shopping Cart</h1>
+    <div class="bg-white rounded-xl shadow-lg p-6">
+        <div id="cart-items" class="mb-6">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="border-t pt-4">
+            <div class="flex justify-between mb-4">
+                <span class="text-lg font-semibold">Subtotal:</span>
+                <span id="cart-subtotal" class="text-lg font-semibold">₹0.00</span>
+            </div>
+            <div class="flex justify-between mb-4">
+                <span class="text-lg font-semibold">Shipping:</span>
+                <span class="text-lg font-semibold">₹99.00</span>
+            </div>
+            <div class="flex justify-between mb-6">
+                <span class="text-xl font-bold">Total:</span>
+                <span id="cart-total" class="text-xl font-bold text-green-600">₹99.00</span>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="showView('products')"
+                    class="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-300 transition">
+                    Continue Shopping
+                </button>
+                <button onclick="showCheckout()" class="flex-1 modern-button">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Checkout View -->
+<div id="checkout-view" class="view hidden">
+    <h1 class="text-3xl font-bold mb-6">Checkout</h1>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Billing Information -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-bold mb-4">Billing Information</h2>
+            <form id="checkout-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">First Name</label>
+                        <input type="text" class="modern-input" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Last Name</label>
+                        <input type="text" class="modern-input" required>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Email</label>
+                    <input type="email" class="modern-input" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Address</label>
+                    <input type="text" class="modern-input" required>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">City</label>
+                        <input type="text" class="modern-input" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">State</label>
+                        <input type="text" class="modern-input" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">ZIP Code</label>
+                        <input type="text" class="modern-input" required>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Phone Number</label>
+                    <input type="tel" class="modern-input" required>
+                </div>
+            </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-bold mb-4">Order Summary</h2>
+            <div id="checkout-items" class="mb-6">
+                <!-- Cart items will be loaded here -->
+            </div>
+            <div class="border-t pt-4">
+                <div class="flex justify-between mb-2">
+                    <span>Subtotal:</span>
+                    <span id="checkout-subtotal">₹0.00</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span>Shipping:</span>
+                    <span>₹99.00</span>
+                </div>
+                <div class="flex justify-between mb-4">
+                    <span>Tax:</span>
+                    <span id="checkout-tax">₹0.00</span>
+                </div>
+                <div class="flex justify-between mb-6">
+                    <span class="text-xl font-bold">Total:</span>
+                    <span id="checkout-total" class="text-xl font-bold text-green-600">₹99.00</span>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Payment Method</label>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input type="radio" id="credit-card" name="payment" class="mr-2" checked>
+                            <label for="credit-card">Credit Card</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="radio" id="paypal" name="payment" class="mr-2">
+                            <label for="paypal">PayPal</label>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="placeOrder()" class="w-full modern-button">
+                    Place Order
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- About View -->
+<div id="about-view" class="view hidden">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-6">About AgriShop</h1>
+        <div class="prose max-w-none">
+            <p class="mb-4">
+                In the fertile lands of Pune, Maharashtra, AgriShop was born in 2010 not merely as a business,
+                but as a response to a pressing need in India's agricultural landscape. Our founder, Mr. Hitesh
+                Lokare, an agricultural scientist with over two decades of experience, witnessed firsthand the
+                challenges farmers faced in accessing quality agricultural products, reliable information, and
+                modern farming tools. What started as a small storefront with just 50 essential products and a
+                passionate team of three individuals has blossomed into India's most trusted agricultural
+                marketplace, today serving over 50,000 farmers across the length and breadth of the nation.
+
+                Our journey mirrors the growth of Indian agriculture itself—evolving from traditional practices
+                to embrace innovation while staying rooted in the timeless wisdom of farming communities. Each
+                milestone in our growth story has been driven by one fundamental principle: putting the farmer
+                first. From introducing our revolutionary tool rental program that made expensive equipment
+                accessible to small farmers, to launching our AI-powered crop disease detection platform that
+                brings cutting-edge technology to rural fields, every innovation at AgriShop has been designed
+                to solve real problems faced by real farmers.
+            </p>
+            <p class="mb-4">
+                we've been serving the agricultural community for over a decade. Our team
+                consists of agriculture experts who carefully select and test every product we offer to ensure
+                it meets our high standards of quality and effectiveness.
+            </p>
+            <h2 class="text-2xl font-bold mt-8 mb-4">Our Mission</h2>
+            <p class="mb-4">
+                At AgriShop, our fundamental mission is to empower every Indian farmer with comprehensive access
+                to world-class agricultural products, cutting-edge technology, and transformative knowledge
+                while steadfastly fostering sustainable farming practices that ensure food security, economic
+                prosperity, and environmental stewardship for current and future generations. We are driven by
+                the unwavering belief that quality agricultural inputs should not be a luxury but a fundamental
+                right for every farmer, regardless of their land size or location, which is why we work
+                relentlessly to democratize access through our extensive distribution network, affordable
+                pricing strategies, and innovative tool rental programs that break down financial barriers to
+                modern farming equipment. Our mission extends beyond mere product provision to encompass
+                holistic farmer empowerment through rigorous quality assurance protocols that guarantee every
+                seed, fertilizer, and tool meets the highest standards of performance and reliability, coupled
+                with comprehensive knowledge dissemination initiatives including free workshops, expert
+                consultations, and digital learning platforms that translate complex agricultural research into
+                practical, actionable insights for farmers in the field. We are deeply committed to leading
+                India's transition toward sustainable agriculture by promoting eco-friendly farming practices,
+                water conservation techniques, and organic alternatives that protect our environment while
+                enhancing productivity and profitability for farming communities
+            </p>
+            <h2 class="text-2xl font-bold mt-8 mb-4">Why Choose Us?</h2>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>High-quality, tested products</li>
+                <li>Competitive prices</li>
+                <li>Expert advice and support</li>
+                <li>Fast and reliable shipping</li>
+                <li>Satisfaction guarantee</li>
+            </ul>
+
+            <h2 class="text-2xl font-bold mt-8 mb-4">Our Team</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+                <div class="text-center">
+                    <img src="Profile-images/Hitesh-Profile.jpg" alt="Team Member"
+                        class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold">Mr. Hitesh Lokare</h3>
+                    <p class="text-gray-600">Founder & CEO</p>
+                    <p class="text-sm mt-2">Agricultural scientist with over 7+ years of experience in
+                        sustainable farming practices.</p>
+                </div>
+                <div class="text-center">
+                    <img src="Profile-images/Profile-empty.jpg" alt="Team Member"
+                        class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold">Mr. Sumit Lipan</h3>
+                    <p class="text-gray-600">Head of Operations</p>
+                    <p class="text-sm mt-2">Expert in supply chain management and ensuring quality products
+                        reach our customers.</p>
+                </div>
+                <div class="text-center">
+                    <img src="Profile-images/Profile-empty.jpg" alt="Team Member"
+                        class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold">MISS. Madhura Lipare</h3>
+                    <p class="text-gray-600">Lead Agronomist</p>
+                    <p class="text-sm mt-2">Specializes in soil health and crop nutrition, providing expert
+                        advice to our customers.</p>
+                </div>
+                <div class="text-center">
+                    <img src="Profile-images/Pranav-Profile.jpg" alt="Team Member"
+                        class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="font-semibold">Mr. Pranav Kutwal</h3>
+                    <p class="text-gray-600">Head of Management</p>
+                    <p class="text-sm mt-2">Expert in supply chain management and ensuring quality products
+                        reach our customers.</p>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold mt-8 mb-4">Our Achievements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="font-semibold text-lg mb-2">4+ Years of Service</h3>
+                    <p>Journey of Excellence: Since 2021, AgriShop has evolved from a small Pune store to
+                        India's trusted agricultural marketplace
+                        Experience & Expertise: Over a decade of understanding farmer needs, market dynamics,
+                        and agricultural challenges
+                        Adaptability: Successfully navigated changing agricultural landscape, from traditional
+                        to digital farming era
+                        Trust Building: Long-term relationships with farmers built through consistent quality
+                        and reliable service</p>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="font-semibold text-lg mb-2">50,000+ Happy Customers</h3>
+                    <p>Nationwide Reach: Serving farmers across 15+ states with diverse agricultural needs
+                        Customer Satisfaction: 95% positive feedback rate and 80% repeat customer ratio
+                        Community Building: Created a network of 10,000+ farmers sharing knowledge and
+                        experiences
+                        Success Stories: Helped farmers increase average yields by 35% and reduce input costs by
+                        25%
+                        Trust Factor: 90% customer referrals through word-of-mouth recommendations.</p>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="font-semibold text-lg mb-2">1000+ Products</h3>
+                    <p>Comprehensive Range: Complete farming solutions from seeds to harvesters, covering every
+                        agricultural need
+                        Quality Assurance: Each product undergoes rigorous testing before inclusion in our
+                        catalog
+                        Diverse Categories: Seeds, fertilizers, tools, pesticides, organic products, and modern
+                        farming equipment
+                        Regular Updates: Continuously adding new products based on farmer feedback and market
+                        research
+                        Brand Partnerships: Collaborations with 50+ leading agricultural brands and
+                        manufacturers</p>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="font-semibold text-lg mb-2">Award-Winning Service</h3>
+                    <p>Best Agri-Tech Startup 2022: Recognized by Agricultural Innovation Forum for digital
+                        transformation
+                        Excellence in Customer Service: Awarded by Customer Service Council for farmer-centric
+                        approach
+                        Sustainable Business Award 2021: Honored by Green Business Council for eco-friendly
+                        practices
+                        ISO 9001:2015 Certification: International quality management systems certification
+                        Digital Innovation Award: Recognition for AI-powered crop disease detection platform
+                        Farmer Choice Award: Voted as most trusted agricultural marketplace by farming
+                        communities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact View -->
+<div id="contact-view" class="view hidden">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-6">Contact Us</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-xl font-bold mb-4">Get in Touch</h2>
+                <p class="mb-4">
+                    Have questions or need assistance? Our team is here to help. Reach out to us through any of
+                    the following methods:
+                </p>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-map-marker-alt text-green-500 mt-1 mr-3"></i>
+                        <div>
+                            <h3 class="font-semibold">Address</h3>
+                            <p>123 Farm Road, Narhe, Pune, Maharashtra 411041</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-phone text-green-500 mt-1 mr-3"></i>
+                        <div>
+                            <h3 class="font-semibold">Phone</h3>
+                            <p>+91 93093-58449</p>
+                            <p>+91 95296-33067</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-envelope text-green-500 mt-1 mr-3"></i>
+                        <div>
+                            <h3 class="font-semibold">Email</h3>
+                            <p>info@agrishop.com</p>
+                            <p>support@agrishop.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-clock text-green-500 mt-1 mr-3"></i>
+                        <div>
+                            <h3 class="font-semibold">Business Hours</h3>
+                            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                            <p>Saturday: 9:00 AM - 4:00 PM</p>
+                            <p>Sunday: Closed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-xl font-bold mb-4 mt-8">Follow Us</h2>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-green-600 hover:text-green-700">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="text-green-600 hover:text-green-700">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="hiteshh.12__" class="text-green-600 hover:text-green-700">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-green-600 hover:text-green-700">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                    <a href="#" class="text-green-600 hover:text-green-700">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold mb-4">Send a Message</h2>
+                <form id="contact-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Name</label>
+                        <input type="text" class="modern-input" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Email</label>
+                        <input type="email" class="modern-input" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Subject</label>
+                        <input type="text" class="modern-input" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Message</label>
+                        <textarea rows="4" class="modern-input" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full modern-button">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <h2 class="text-xl font-bold mb-4">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="border-b pb-4">
+                    <h3 class="font-semibold mb-2">How long does delivery take?</h3>
+                    <p class="text-gray-600">Standard delivery takes 3-5 business days. Express delivery is
+                        available for an additional fee.</p>
+                </div>
+                <div class="border-b pb-4">
+                    <h3 class="font-semibold mb-2">Do you offer international shipping?</h3>
+                    <p class="text-gray-600">Currently, we only ship within India. We're working on expanding
+                        our shipping options.</p>
+                </div>
+                <div class="border-b pb-4">
+                    <h3 class="font-semibold mb-2">What is your return policy?</h3>
+                    <p class="text-gray-600">We offer a 7-day return policy for unused products in their
+                        original packaging. Please contact our customer service for assistance.</p>
+                </div>
+                <div class="border-b pb-4">
+                    <h3 class="font-semibold mb-2">How can I track my order?</h3>
+                    <p class="text-gray-600">Once your order is shipped, you'll receive a tracking number via
+                        email that you can use to track your package.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Dashboard View -->
+<div id="admin-dashboard-view" class="view hidden">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-2">Admin Dashboard</h1>
+        <p class="text-gray-600">Manage products, inventory, and orders</p>
+    </div>
+
+    <!-- Admin Navigation -->
+    <div class="bg-white rounded-xl shadow-lg p-4 mb-6">
+        <div class="flex flex-wrap gap-2">
+            <button onclick="showAdminSection('dashboard')"
+                class="admin-nav-btn px-4 py-2 bg-green-500 text-white rounded-lg">Dashboard</button>
+            <button onclick="showAdminSection('orders')"
+                class="admin-nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Orders</button>
+            <button onclick="showAdminSection('products')"
+                class="admin-nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Products</button>
+            <button onclick="showAdminSection('users')"
+                class="admin-nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Users</button>
+            <button onclick="showView('inventory-management')"
+                class="admin-nav-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Inventory
+                Management</button>
+            <button onclick="logout()"
+                class="ml-auto px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Logout</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="admin-section">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="bg-blue-100 p-3 rounded-full">
+                        <i class="fas fa-shopping-cart text-blue-600 text-xl"></i>
+                    </div>
+                    <span class="text-sm text-gray-500">This Month</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-1">245</h3>
+                <p class="text-gray-600">Total Orders</p>
+                <div class="mt-4 flex items-center text-green-600">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    <span class="text-sm">12% from last month</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="bg-green-100 p-3 rounded-full">
+                        <i class="fas fa-dollar-sign text-green-600 text-xl"></i>
+                    </div>
+                    <span class="text-sm text-gray-500">This Month</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-1">₹1,24,560</h3>
+                <p class="text-gray-600">Revenue</p>
+                <div class="mt-4 flex items-center text-green-600">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    <span class="text-sm">8% from last month</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="bg-purple-100 p-3 rounded-full">
+                        <i class="fas fa-users text-purple-600 text-xl"></i>
+                    </div>
+                    <span class="text-sm text-gray-500">Total</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-1">1,842</h3>
+                <p class="text-gray-600">Customers</p>
+                <div class="mt-4 flex items-center text-green-600">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    <span class="text-sm">5% from last month</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="bg-orange-100 p-3 rounded-full">
+                        <i class="fas fa-box text-orange-600 text-xl"></i>
+                    </div>
+                    <span class="text-sm text-gray-500">Total</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-1">486</h3>
+                <p class="text-gray-600">Products</p>
+                <div class="mt-4 flex items-center text-red-600">
+                    <i class="fas fa-arrow-down mr-1"></i>
+                    <span class="text-sm">2% from last month</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4">Recent Orders</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-2">Order ID</th>
+                                <th class="text-left py-2">Customer</th>
+                                <th class="text-left py-2">Amount</th>
+                                <th class="text-left py-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-2">#ORD001</td>
+                                <td class="py-2">Ramesh Kumar</td>
+                                <td class="py-2">₹1,250</td>
+                                <td class="py-2"><span
+                                        class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Delivered</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-2">#ORD002</td>
+                                <td class="py-2">Priya Sharma</td>
+                                <td class="py-2">₹890</td>
+                                <td class="py-2"><span
+                                        class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">Processing</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-2">#ORD003</td>
+                                <td class="py-2">Amit Patel</td>
+                                <td class="py-2">₹2,100</td>
+                                <td class="py-2"><span
+                                        class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Shipped</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4">Top Selling Products</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/product1/50/50.jpg" alt="Product"
+                            class="w-12 h-12 rounded mr-3">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold">Organic Tomato Seeds</h4>
+                            <p class="text-sm text-gray-600">245 sold</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold">₹120</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/product2/50/50.jpg" alt="Product"
+                            class="w-12 h-12 rounded mr-3">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold">NPK Fertilizer</h4>
+                            <p class="text-sm text-gray-600">189 sold</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold">₹450</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/seed/product3/50/50.jpg" alt="Product"
+                            class="w-12 h-12 rounded mr-3">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold">Garden Trowel</h4>
+                            <p class="text-sm text-gray-600">156 sold</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold">₹250</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Section -->
+    <div id="orders-section" class="admin-section hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">Order Management</h2>
+
+            <div class="mb-4">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input type="text" placeholder="Search orders..."
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
+                    </div>
+                    <div>
+                        <select
+                            class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
+                            <option value="all">All Orders</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Orders will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <div id="products-section" class="admin-section hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Product Management</h2>
+                <button onclick="showAddProductModal()" class="modern-button">
+                    <i class="fas fa-plus mr-2"></i> Add Product
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Section -->
+    <div id="users-section" class="admin-section hidden">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">User Management</h2>
+
+            <div class="mb-4">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input type="text" placeholder="Search users..."
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
+                    </div>
+                    <div>
+                        <select
+                            class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
+                            <option value="all">All Users</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Registration Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Inventory Management View -->
+<div id="inventory-management-view" class="view hidden">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-2">Inventory Management</h1>
+        <p class="text-gray-600">Manage product inventory and stock levels</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Stock Overview</h2>
+            <button onclick="showAddProductModal()" class="modern-button">
+                <i class="fas fa-plus mr-2"></i> Add Product
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-green-50 p-6 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-lg font-semibold">In Stock</h3>
+                    <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                </div>
+                <p class="text-3xl font-bold text-green-600">156</p>
+                <p class="text-gray-600">Products available</p>
+            </div>
+
+            <div class="bg-yellow-50 p-6 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-lg font-semibold">Low Stock</h3>
+                    <i class="fas fa-exclamation-triangle text-yellow-600 text-xl"></i>
+                </div>
+                <p class="text-3xl font-bold text-yellow-600">24</p>
+                <p class="text-gray-600">Products need restocking</p>
+            </div>
+
+            <div class="bg-red-50 p-6 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-lg font-semibold">Out of Stock</h3>
+                    <i class="fas fa-times-circle text-red-600 text-xl"></i>
+                </div>
+                <p class="text-3xl font-bold text-red-600">8</p>
+                <p class="text-gray-600">Products unavailable</p>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex-1">
+                    <input type="text" id="inventory-search" placeholder="Search products..."
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
+                </div>
+                <div>
+                    <select id="inventory-filter"
+                        class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
+                        <option value="all">All Products</option>
+                        <option value="low-stock">Low Stock</option>
+                        <option value="out-of-stock">Out of Stock</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Stock Level</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-table-body">
+                    <!-- Inventory items will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Stock Visualization Chart -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-6">Stock Visualization</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Category-wise Stock</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Seeds</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="stock-visualization">
+                            <div class="stock-bar" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Fertilizers</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="stock-visualization">
+                            <div class="stock-bar" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Tools</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="stock-visualization">
+                            <div class="stock-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Pesticides</span>
+                            <span>30%</span>
+                        </div>
+                        <div class="stock-visualization">
+                            <div class="stock-bar low-stock-bar" style="width: 30%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4">Top Selling Products Stock</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Organic Tomato Seeds</span>
+                            <span>50 units</span>
+                        </div>
+                        <div class="stock-visualization">
+                            <div class="stock-bar" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>NPK Fertilizer</span>
+                            <span>5 units</span>
+                        </div>
+                        <div class="stock-visualization">
+                            <div class="stock-bar low-stock-bar" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Garden Trowel</span>
+                            <span>0 units</span>
+                        </div>
+                        <div class="stock-visualization">
+                            <div class="stock-bar out-of-stock-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span>Organic Pesticide</span>
+                            <span>25 units</span>
+                        </div>
+                        <div class="stock-visualization">
+                            <div class="stock-bar" style="width: 25%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Product Modal -->
+<div id="add-product-modal" class="modal">
+    <div class="modal-content">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold">Add Product</h2>
+            <button onclick="closeModal('add-product-modal')" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <form id="add-product-form" class="space-y-4">
+            <div>
+                <label class="block text-gray-700 mb-2">Product Name</label>
+                <input type="text" class="modern-input" required>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 mb-2">Category</label>
+                    <select class="modern-input" required>
+                        <option value="">Select Category</option>
+                        <option value="seeds">Seeds</option>
+                        <option value="fertilizers">Fertilizers</option>
+                        <option value="tools">Tools</option>
+                        <option value="pesticides">Pesticides</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2">Brand</label>
+                    <input type="text" class="modern-input" required>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 mb-2">Price</label>
+                    <input type="number" step="0.01" class="modern-input" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2">Stock Quantity</label>
+                    <input type="number" class="modern-input" required>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 mb-2">Description</label>
+                <textarea rows="4" class="modern-input" required></textarea>
+            </div>
+
+            <div>
+                <label class="block text-gray-700 mb-2">Product Image</label>
+                <input type="file" class="modern-input">
+            </div>
+
+            <div class="flex space-x-4">
+                <button type="button" onclick="closeModal('add-product-modal')"
+                    class="flex-1 bg-gray-200 text-gray-800 py-2 rounded-lg hover:bg-gray-300 transition">
+                    Cancel
+                </button>
+                <button type="submit" class="flex-1 modern-button">
+                    Add Product
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</main>
+
+<!-- Cart Sidebar -->
+<div id="cart-sidebar"
+    class="fixed right-0 top-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+    <div class="p-4 border-b flex justify-between items-center">
+        <h2 class="text-xl font-bold">Your Cart</h2>
+        <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div id="sidebar-cart-items" class="p-4 overflow-y-auto" style="height: calc(100% - 200px);">
+        <!-- Cart items will be loaded here -->
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 p-4 border-t bg-white">
+        <div class="flex justify-between mb-4">
+            <span class="font-semibold">Total:</span>
+            <span id="sidebar-cart-total" class="font-bold text-green-600">₹0.00</span>
+        </div>
+        <button onclick="showView('cart'); toggleCart();" class="w-full modern-button">
+            View Cart
+        </button>
+    </div>
+</div>
+
+<!-- Chatbot - Moved to left side -->
+<div id="chatbot" class="chatbot-container minimized">
+    <div class="chatbot-header">
+        <h3>AgriShop Assistant</h3>
+        <button id="chatbot-toggle" onclick="toggleChatbot()">
+            <i class="fas fa-minus"></i>
+        </button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+        <div class="message bot-message">
+            Hello! I'm AgriShop Assistant. How can I help you today?
+        </div>
+    </div>
+    <div class="chatbot-input-container">
+        <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Type your message...">
+        <button class="chatbot-send-button" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!-- WhatsApp Button - Positioned above chatbot -->
+<div class="whatsapp-button" onclick="openWhatsApp()">
+    <a href="https://chat.whatsapp.com/IPwrXZ5xYvS3lQVBrZ0Izf?mode=wwt"></a>
+    <i class="fab fa-whatsapp text-2xl"></i>
+</div>
+
+<!-- Footer -->
+<footer class="bg-green-600 text-white py-8 mt-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-4">
+                    <img src="agrishop-logo.jpg" alt="AgriShop Logo" class="w-12 h-12 rounded-full">
+                    <h3 class="text-xl font-bold">AgriShop</h3>
+                </div>
+                <p class="text-green-100">Your one-stop destination for all agriculture needs.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="showView('home')"
+                            class="text-green-100 hover:text-white transition">Home</a></li>
+                    <li><a href="#" onclick="showView('products')"
+                            class="text-green-100 hover:text-white transition">Products</a></li>
+                    <li><a href="#" onclick="showView('tools-rental')"
+                            class="text-green-100 hover:text-white transition">Tools Rental</a></li>
+                    <li><a href="#" onclick="showView('about')"
+                            class="text-green-100 hover:text-white transition">About</a></li>
+                    <li><a href="#" onclick="showView('contact')"
+                            class="text-green-100 hover:text-white transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Categories</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="filterByCategory('seeds'); showView('products')"
+                            class="text-green-100 hover:text-white transition">Seeds</a></li>
+                    <li><a href="#" onclick="filterByCategory('fertilizers'); showView('products')"
+                            class="text-green-100 hover:text-white transition">Fertilizers</a></li>
+                    <li><a href="#" onclick="filterByCategory('tools'); showView('products')"
+                            class="text-green-100 hover:text-white transition">Tools</a></li>
+                    <li><a href="#" onclick="filterByCategory('pesticides'); showView('products')"
+                            class="text-green-100 hover:text-white transition">Pesticides</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                <div class="flex space-x-4 mb-4">
+                    <a href="#" class="text-green-100 hover:text-white transition">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="text-green-100 hover:text-white transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-green-100 hover:text-white transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-green-100 hover:text-white transition">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+                <p class="text-green-100">Subscribe to our newsletter for updates and offers.</p>
+                <div class="mt-2 flex">
+                    <input type="email" placeholder="Your email"
+                        class="px-4 py-2 rounded-l-lg text-gray-800 w-full focus:outline-none">
+                    <button class="bg-green-500 px-4 py-2 rounded-r-lg hover:bg-green-400 transition">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-green-500 mt-8 pt-6 text-center text-green-100">
+            <p>&copy; 2021 AgriShop. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+<!-- <script type="module" src="FarmingFeature.js"></script> -->
+<script src="index.js"></script>
+<script src="Data/rentalProducts.js"></script>
+<script src="Data/products.js"></script>
+</body>
+
+</html>
